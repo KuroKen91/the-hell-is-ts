@@ -263,13 +263,19 @@ Both Player and Fan should implement their respective interface and declare nece
  * @name BaseUser
  * @implements User
  */
-export class BaseUser {
+export abstract class BaseUser implements IUser {
+  ID: string;
+  username: string;
+  slices: number;
   /**
    * Calculates the amount of pizzas a user has amassed, based on an 8—way sliced pie.
    * @name getPizzas
    * @returns an integer indicating the amount of pizzas.
    */
-  getPizzas() {}
+  getPizzas(): number {
+    const answer = this.slices / 8;
+    return answer;
+  }
 }
 
 /**
@@ -277,14 +283,19 @@ export class BaseUser {
  * @name Player
  * @extends BaseUser
  */
-export class Player {}
+export class Player extends BaseUser implements IPlayer {
+  wins: number;
+  losses: number;
+}
 
 /**
  * Represents a fan.
  * @name Fan
  * @extends BaseUser
  */
-export class Fan {}
+export class Fan extends BaseUser implements IFan {
+  contributions: string[]; //optional 
+}
 
 /* EX. VI
 ↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯
