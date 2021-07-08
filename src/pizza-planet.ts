@@ -28,9 +28,9 @@ import database from "./pizza-planet-db.json";
  * @name PizzaPlanetDB
  */
 class PizzaPlanetDB {
-  users: unknown;
-  contributions: unknown;
-  async getUser(ID: unknown) {
+  users: User[];
+  contributions: IContribution[];
+  async getUser(ID: string) {
     console.log("Getting user from database...");
     return database.users.find((user) => user.ID === ID);
   }
@@ -106,8 +106,12 @@ const s3x3ID = () => {
  * @returns
  * A contribution object.
  */
-const generateContribution = (contributionInfo: unknown): unknown => {
-  return {};
+const generateContribution = (contributionInfo: IContribution): IContribution => {
+  return {
+    ...contributionInfo,
+    ID: s3x3ID(),
+    date: new Date().toISOString(),
+  };
 };
 
 // console.log(
@@ -131,10 +135,12 @@ const generateContribution = (contributionInfo: unknown): unknown => {
  * @example {getUserByID(db)("MMM-MMM-MMM").then()}
  */
 const getUserByID =
-  (db: unknown) =>
-  (userID: unknown): unknown => {
-    return {};
-  };
+(db: PizzaPlanetDB) =>
+async (userID: string): Promise<IUser> => {
+  const user = await db.getUser(userID);
+  // @ts-ignore //check out the solutions for info about validation and data integrity
+  return user;
+    };
 
 /* EX. III
 ↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯
