@@ -46,7 +46,7 @@ Create appropriate interfaces for each kind of object in Pizza Planet.
 
 /* User is the base level interface for a user of the app.*/
 export interface IUser {
-  ID: number
+  ID: string;
   username: string;
   slices: number;
 }
@@ -153,16 +153,16 @@ Construct the following types by using utility types.
  * @type AnonymousContribution 
  * @uses Omit<T,S>
 */
-export type AnonymousContribution = unknown;
+export type AnonymousContribution = Omit<IContribution, "benefactorID">;
 
 /**
  A fan that has made a contribution.
  * @type Contributor 
  * @uses Omit<T> 
 */
-export type Contributor = unknown;
+export type Contributor = Required<IFan>;
 
-const fraser: unknown = {
+const fraser: Contributor = {
   ID: "FFF-FFF-FFF",
   username: "frooth",
   contributions: [],
@@ -181,9 +181,9 @@ const fraser: unknown = {
  * @type UserInfo
  * @uses Partial<T>
 */
-export type UserInfo = unknown;
+export type UserInfo = Partial<User>;
 
-const userInfo: unknown = {
+const userInfo: UserInfo = {
   ID: "BBB-BBB-BBB",
   contributions: ["000-000-000"],
   // age: 9,
