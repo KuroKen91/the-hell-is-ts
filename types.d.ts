@@ -23,7 +23,7 @@ Below is a module declaration block.
 Uncomment it to fix the no declaration error in src/module.ts.
 Specifies to the TS compiler how to import and type this module.
 ↯ */
-// declare module "*.glsl" {
-//   const value: string;
-//   export default value;
-// }
+declare module "*.glsl" {
+  const value: string;
+  export default value;
+}
