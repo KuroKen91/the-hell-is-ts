@@ -45,22 +45,37 @@ Create appropriate interfaces for each kind of object in Pizza Planet.
 */
 
 /* User is the base level interface for a user of the app.*/
-export interface IUser {}
+export interface IUser {
+  ID: number
+  username: string;
+  slices: number;
+}
 
 /* Players are the contenders, and they have a pizza slice count
 and a record of wins and losses. They have a unique user ID.*/
-export interface IPlayer {}
+export interface IPlayer extends IUser {
+  wins: number;
+  losses: number;
+}
 
 /* Fans are the spectators, and they have a cash count
 and a record of contributions made. They have a unique user ID.*/
-export interface IFan {}
+export interface IFan extends IUser {
+  contributions?: string[]; //? Much of the time, we’ll find ourselves dealing with objects that might have a property set. In those cases, we can mark those properties as optional by adding a question mark (?) to the end of their names.
+}
 
 /* Contributions are objects that represent a contribution 
 from fan to player. We should be able to tell when a contribution was made. */
-export interface IContribution {}
+export interface IContribution {
+  ID: string;
+  benefactorID: string;
+  beneficiaryID: string;
+  amount: number;
+  date: string;
+}
 
 /* User is a type alias that can evaluate to any type of users.*/
-type User = unknown;
+type User = IPlayer | IFan;
 
 /* EX. II
 ↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯↯
