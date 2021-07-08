@@ -209,7 +209,9 @@ Construct the following generic types.
 https://www.typescriptlang.org/docs/handbook/interfaces.html#indexable-types
 */
 
-export type UserDictionary = unknown;
+export type UserDictionary = {
+  [key: string]: User;
+};
 
 const users: UserDictionary = {
   johan: {
@@ -241,10 +243,10 @@ const users: UserDictionary = {
  * }
  * @link https://www.typescriptlang.org/docs/handbook/advanced-types.html#interfaces-vs-type-aliases
 */
-export type Property = unknown;
+export type Property<Tingle, Dingle extends keyof Tingle> = Tingle[Dingle];
 
 // username param type should evaluate dynamically to string using Property -> (parameter) username: unknown
-const getIDByUsername = (username: unknown) => {
+const getIDByUsername = (username: Property<IUser, "ID">) => {
   /* do not implement this */
 };
 
