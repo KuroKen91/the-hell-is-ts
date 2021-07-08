@@ -283,6 +283,7 @@ export abstract class BaseUser implements IUser {
  * @name Player
  * @extends BaseUser
  */
+@deprecated("6.6.5")
 export class Player extends BaseUser implements IPlayer {
   wins: number;
   losses: number;
@@ -293,6 +294,7 @@ export class Player extends BaseUser implements IPlayer {
  * @name Fan
  * @extends BaseUser
  */
+@deprecated("6.6.5")
 export class Fan extends BaseUser implements IFan {
   contributions: string[]; //optional 
 }
@@ -311,4 +313,10 @@ and may not work as intended." when instantiated from the Fan or Player class.
  * @returns a decorator function that logs a deprecation message.
  * @example {@deprecated("6.6.5")}
  */
-function deprecated() {}
+function deprecated(version: string) {
+  return function (FunctionName: Function) {
+    console.log(
+      `Class <${FunctionName.name}> has been deprecated in version ${version}, and may not work as intended.`
+    )
+  }
+}
